@@ -42,5 +42,9 @@ class PaymentTest extends TestCase
 
         $payment->setShippingCosts(500);
         $this->assertEquals(500, $payment->getShippingCosts());
+
+        $this->assertFalse($payment->isSuccess());
+
+        $this->assertTrue(is_string($payment->getToken()));
     }
 }
