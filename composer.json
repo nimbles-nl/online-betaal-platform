@@ -1,0 +1,35 @@
+{
+  "name": "nimbles-nl/online-betaal-platform",
+  "description": "PHP Package for onlinebetaalplatform",
+  "keywords": [
+    "iDEAL",
+    "payment",
+    "php",
+    "onlinebetaalplatform"
+  ],
+  "homepage": "https://github.com/nimbles-nl/online-betaal-platform",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Wessel Strengholt",
+      "email": "wessel@nimbles.com"
+    }
+  ],
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": ">=5.5.9",
+    "guzzlehttp/guzzle": "~6.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.1"
+  },
+  "autoload": {
+    "psr-0": {
+      "Nimbles\\OnlineBetaalPlatform": "src/"
+    }
+  }
+}
