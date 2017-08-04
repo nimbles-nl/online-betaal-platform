@@ -1,2 +1,3 @@
-# online-betaal-platform
-php client for onlinebetaalplatform.nl
+# PHP client for onlinebetaalplatform.nl
+
+Work in progress....
