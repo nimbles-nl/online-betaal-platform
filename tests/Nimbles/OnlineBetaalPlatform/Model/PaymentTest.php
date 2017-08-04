@@ -34,7 +34,7 @@ class PaymentTest extends TestCase
         $payment->setBuyerFirstName('peter');
         $this->assertEquals('peter', $payment->getBuyerFirstName());
 
-        $payment->setBuyerLastName('jenkins@github.com');
+        $payment->setBuyerEmail('jenkins@github.com');
         $this->assertEquals('jenkins@github.com', $payment->getBuyerEmail());
 
         $payment->setRedirectUrl('https://nimbles.com/redirect/url');
