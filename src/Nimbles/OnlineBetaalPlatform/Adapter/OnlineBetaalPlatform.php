@@ -114,6 +114,10 @@ class OnlineBetaalPlatform
                 'auth' => [$this->apiKey, null]
             ]);
 
+            if ($response->getStatusCode() !== 200) {
+                throw new TransactionException('Invalid response');
+            }
+
             $data = json_decode($response->getBody()->getContents(), true);
 
             $payment = new Payment($data['return_url'], $data['amount']);
@@ -121,6 +125,7 @@ class OnlineBetaalPlatform
             $payment->setUid($data['uid']);
 
             return $payment;
+
         } catch (\Exception $exception) {
             throw new TransactionException($exception->getMessage());
         }

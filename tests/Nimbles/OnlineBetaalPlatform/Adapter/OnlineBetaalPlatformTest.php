@@ -308,9 +308,48 @@ class OnlineBetaalPlatformTest extends TestCase
                     'return_url'     => 'https://www.foo.com/test?token=super-secret',
                 ],
             ])
-            ->willThrowException(new \Exception());
+            ->willReturn($this->response);
 
         $this->onlineBetaalPlatform->createTransaction($this->payment);
+    }
+
+    public function testGetTransaction()
+    {
+        $this->httpClient->expects($this->once())
+            ->method('request')
+            ->with('GET', 'https://api.onlinebetaalplatform.nl/transactions/unique-id',
+                ['auth' => ['secret-token', null]]
+            )
+            ->willReturn($this->response);
+
+        $this->response->expects($this->once())
+            ->method('getStatusCode')
+            ->willReturn(200);
+
+        $this->response->expects($this->once())
+            ->method('getBody')
+            ->willReturn($this->stream);
+
+        $this->stream->expects($this->once())
+            ->method('getContents')
+            ->willReturn(file_get_contents(__DIR__ . '/response.json'));
+
+        $this->onlineBetaalPlatform->getTransaction('unique-id');
+    }
+
+    /**
+     * @expectedException Nimbles\OnlineBetaalPlatform\Exception\TransactionException
+     */
+    public function testGetException()
+    {
+        $this->httpClient->expects($this->once())
+            ->method('request')
+            ->with('GET', 'https://api.onlinebetaalplatform.nl/transactions/unique-id',
+                ['auth' => ['secret-token', null]]
+            )
+            ->willThrowException(new \Exception());
+
+        $this->onlineBetaalPlatform->getTransaction('unique-id');
     }
 
     /**

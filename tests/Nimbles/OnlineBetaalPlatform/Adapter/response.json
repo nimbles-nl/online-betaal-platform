@@ -1,1 +1,1 @@
-{"redirect_url": "http://www.redirect.to-ideal.nl", "status":"created", "uid": "foo-bar"}
+{"redirect_url": "http://www.redirect.to-ideal.nl", "status":"created", "uid": "foo-bar", "return_url": "http://www.return.to-ideal.nl", "amount": 2000}
