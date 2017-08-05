@@ -192,6 +192,128 @@ class OnlineBetaalPlatformTest extends TestCase
     }
 
     /**
+     * @expectedException Nimbles\OnlineBetaalPlatform\Exception\CreatePaymentException
+     */
+    public function testCreatePaymentUnauthorizedPaymentException()
+    {
+        $this->payment->expects($this->once())
+            ->method('getBuyerFirstName')
+            ->willReturn('Klaas');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerLastName')
+            ->willReturn('Bruinsma');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerEmail')
+            ->willReturn('klaas@bruinsma.nl');
+
+        $this->payment->expects($this->exactly(2))
+            ->method('getAmount')
+            ->willReturn(2500);
+
+        $this->payment->expects($this->once())
+            ->method('getShippingCosts')
+            ->willReturn(100);
+
+        $this->payment->expects($this->once())
+            ->method('getReturnUrl')
+            ->willReturn('https://www.foo.com/test');
+
+        $this->payment->expects($this->once())
+            ->method('getToken')
+            ->willReturn('super-secret');
+
+        $this->httpClient->expects($this->once())
+            ->method('request')
+            ->with('POST', 'https://api.onlinebetaalplatform.nl/transactions', [
+                'auth' => ['secret-token', null],
+                'form_params' => [
+                    'buyer_name_first'      => 'Klaas',
+                    'buyer_name_last'       => 'Bruinsma',
+                    'buyer_emailaddress'    => 'klaas@bruinsma.nl',
+                    'merchant_uid'          => 'secret-id',
+                    'products' => [
+                        0 => [
+                            'name' => 'Online payment',
+                            'price' => 2500,
+                            'quantity' => 1,
+                        ],
+                    ],
+                    'shipping_costs' => 100,
+                    'total_price'    => 2500,
+                    'return_url'     => 'https://www.foo.com/test?token=super-secret',
+                ],
+            ])
+            ->willReturn($this->response);
+
+        $this->response->expects($this->once())
+            ->method('getStatusCode')
+            ->willReturn(401);
+
+        $this->onlineBetaalPlatform->createTransaction($this->payment);
+    }
+
+    /**
+     * @expectedException Nimbles\OnlineBetaalPlatform\Exception\CreatePaymentException
+     */
+    public function testCreatePaymentBaseException()
+    {
+        $this->payment->expects($this->once())
+            ->method('getBuyerFirstName')
+            ->willReturn('Klaas');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerLastName')
+            ->willReturn('Bruinsma');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerEmail')
+            ->willReturn('klaas@bruinsma.nl');
+
+        $this->payment->expects($this->exactly(2))
+            ->method('getAmount')
+            ->willReturn(2500);
+
+        $this->payment->expects($this->once())
+            ->method('getShippingCosts')
+            ->willReturn(100);
+
+        $this->payment->expects($this->once())
+            ->method('getReturnUrl')
+            ->willReturn('https://www.foo.com/test');
+
+        $this->payment->expects($this->once())
+            ->method('getToken')
+            ->willReturn('super-secret');
+
+        $this->httpClient->expects($this->once())
+            ->method('request')
+            ->with('POST', 'https://api.onlinebetaalplatform.nl/transactions', [
+                'auth' => ['secret-token', null],
+                'form_params' => [
+                    'buyer_name_first'      => 'Klaas',
+                    'buyer_name_last'       => 'Bruinsma',
+                    'buyer_emailaddress'    => 'klaas@bruinsma.nl',
+                    'merchant_uid'          => 'secret-id',
+                    'products' => [
+                        0 => [
+                            'name' => 'Online payment',
+                            'price' => 2500,
+                            'quantity' => 1,
+                        ],
+                    ],
+                    'shipping_costs' => 100,
+                    'total_price'    => 2500,
+                    'return_url'     => 'https://www.foo.com/test?token=super-secret',
+                ],
+            ])
+            ->willThrowException(new \Exception());
+
+        $this->onlineBetaalPlatform->createTransaction($this->payment);
+    }
+
+    /**
      * @return \PHPUnit_Framework_MockObject_MockObject|ClientInterface
      */
     private function createHttpClientMock()

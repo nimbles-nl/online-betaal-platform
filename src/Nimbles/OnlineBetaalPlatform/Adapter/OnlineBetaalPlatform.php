@@ -78,7 +78,7 @@ class OnlineBetaalPlatform
             ]);
 
             if ($response->getStatusCode() === 401) {
-                throw new UnauthorizedPaymentException('Invalid credentials given');
+                throw new CreatePaymentException('Invalid credentials given');
             }
 
             if ($response->getStatusCode() !== 200) {
