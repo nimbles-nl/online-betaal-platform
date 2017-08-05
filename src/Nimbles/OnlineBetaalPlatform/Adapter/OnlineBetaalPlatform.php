@@ -10,6 +10,7 @@ namespace Nimbles\OnlineBetaalPlatform\Adapter;
 
 use GuzzleHttp\ClientInterface;
 use Nimbles\OnlineBetaalPlatform\Exception\CreatePaymentException;
+use Nimbles\OnlineBetaalPlatform\Exception\TransactionException;
 use Nimbles\OnlineBetaalPlatform\Exception\UnauthorizedPaymentException;
 use Nimbles\OnlineBetaalPlatform\Model\Payment;
 
@@ -94,6 +95,34 @@ class OnlineBetaalPlatform
 
         } catch (\Exception $exception) {
             throw new CreatePaymentException($exception->getMessage());
+        }
+    }
+
+    /**
+     * @param string $uuid
+     *
+     * @return Payment
+     *
+     * @throws TransactionException
+     */
+    public function getTransaction($uuid)
+    {
+        try {
+            $url = sprintf('%s/transactions/%s', $this->uri, $uuid);
+
+            $response = $this->httpClient->request('GET', $url, [
+                'auth' => [$this->apiKey, null]
+            ]);
+
+            $data = json_decode($response->getBody()->getContents(), true);
+
+            $payment = new Payment($data['return_url'], $data['amount']);
+            $payment->setStatus($data['status']);
+            $payment->setUid($data['uid']);
+
+            return $payment;
+        } catch (\Exception $exception) {
+            throw new TransactionException($exception->getMessage());
         }
     }
 }
