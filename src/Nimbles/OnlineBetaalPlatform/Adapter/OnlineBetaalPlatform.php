@@ -6,7 +6,7 @@
 * file that was distributed with this source code.
 */
 
-namespace Nimbles\Services\OnlineBetaalPlatform\Adapter;
+namespace Nimbles\OnlineBetaalPlatform\Adapter;
 
 use GuzzleHttp\ClientInterface;
 use Nimbles\OnlineBetaalPlatform\Exception\CreatePaymentException;
@@ -62,7 +62,7 @@ class OnlineBetaalPlatform
                     'buyer_name_first'      => $payment->getBuyerFirstName(),
                     'buyer_name_last'       => $payment->getBuyerLastName(),
                     'buyer_emailaddress'    => $payment->getBuyerEmail(),
-                    'merchant_uid' => $this->merchantUid,
+                    'merchant_uid'          => $this->merchantUid,
                     'products' => [
                         0 => [
                             'name' => 'Online payment',

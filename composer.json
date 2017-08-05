@@ -16,9 +16,7 @@
     }
   ],
   "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests/"
-    }
+    "psr-4": {"Tests\\": "tests/"}
   },
   "require": {
     "php": ">=5.5.9",

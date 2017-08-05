@@ -6,8 +6,9 @@
 * file that was distributed with this source code.
 */
 
-namespace Nimbles\OnlineBetaalPlatform\Model;
+namespace Tests\Nimbles\OnlineBetaalPlatform\Model;
 
+use Nimbles\OnlineBetaalPlatform\Model\Payment;
 use PHPUnit\Framework\TestCase;
 
 /**
