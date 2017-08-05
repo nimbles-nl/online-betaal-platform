@@ -14,8 +14,6 @@ Send a payment request
 ----------------------
 
 ``` php
-<?php
-
 $guzzle = new Client();
 $apiToken = 'secret-token';
 $url = 'https://api-sandbox.onlinebetaalplatform.nl/v1';

@@ -347,6 +347,25 @@ class OnlineBetaalPlatformTest extends TestCase
             ->with('GET', 'https://api.onlinebetaalplatform.nl/transactions/unique-id',
                 ['auth' => ['secret-token', null]]
             )
+            ->willReturn($this->response);
+
+        $this->response->expects($this->once())
+            ->method('getStatusCode')
+            ->willReturn(401);
+
+        $this->onlineBetaalPlatform->getTransaction('unique-id');
+    }
+
+    /**
+     * @expectedException Nimbles\OnlineBetaalPlatform\Exception\TransactionException
+     */
+    public function testGetExceptionForInvalidResponseCode()
+    {
+        $this->httpClient->expects($this->once())
+            ->method('request')
+            ->with('GET', 'https://api.onlinebetaalplatform.nl/transactions/unique-id',
+                ['auth' => ['secret-token', null]]
+            )
             ->willThrowException(new \Exception());
 
         $this->onlineBetaalPlatform->getTransaction('unique-id');
