@@ -19,10 +19,37 @@ $apiToken = 'secret-token';
 $url = 'https://api-sandbox.onlinebetaalplatform.nl/v1';
 $merchantUid = 'secret-uuid';
 
-$onlinePayment = new OnlineBetaalPlatform($guzzle, $apiToken, $url, $merchantUid);
+$onlineBetaalPlatform = new OnlineBetaalPlatform($guzzle, $apiToken, $url, $merchantUid);
 
-$payment = new Payment('https://www.mywebsite.nl/return-url', 10050);
-$payment = $onlinePayment->createTransaction($payment);
+
+$amount = 10050;  // in full cents. 100 = 1 euro.
+$payment = new Payment('https://www.mywebsite.nl/return-url', $amount);
+$payment = $onlineBetaalPlatform->createTransaction($payment);
+
+$payment->getUid();  // remember this uuid..
 
 return new RedirectResponse($payment->getRedirectUrl());
+```
+
+Receive a payment request
+-------------------------
+
+``` php
+$guzzle = new Client();
+$apiToken = 'secret-token';
+$url = 'https://api-sandbox.onlinebetaalplatform.nl/v1';
+$merchantUid = 'secret-uuid';
+
+$onlineBetaalPlatform = new OnlineBetaalPlatform($guzzle, $apiToken, $url, $merchantUid);
+
+$uuid = 'uuid-received-from-create-method-above';
+
+$payment = $onlineBetaalPlatform->getTransaction($uuid);
+
+if ($payment->isSuccess()) {
+    // Your payment is successful
+} else {
+    // Oops try again..
+}
+
 ```
