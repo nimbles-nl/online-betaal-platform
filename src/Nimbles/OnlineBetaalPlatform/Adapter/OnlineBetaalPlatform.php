@@ -12,6 +12,7 @@ use GuzzleHttp\ClientInterface;
 use Nimbles\OnlineBetaalPlatform\Exception\CreatePaymentException;
 use Nimbles\OnlineBetaalPlatform\Exception\TransactionException;
 use Nimbles\OnlineBetaalPlatform\Model\Payment;
+use Nimbles\OnlineBetaalPlatform\Model\Transaction;
 
 /**
  * Class OnlineBetaalPlatform
@@ -99,7 +100,7 @@ class OnlineBetaalPlatform
     /**
      * @param string $uuid
      *
-     * @return Payment
+     * @return Transaction
      *
      * @throws TransactionException
      */
@@ -118,11 +119,13 @@ class OnlineBetaalPlatform
 
             $data = json_decode($response->getBody()->getContents(), true);
 
-            $payment = new Payment($data['return_url'], $data['amount']);
-            $payment->setStatus($data['status']);
-            $payment->setUid($data['uid']);
+            $transaction = new Transaction($data['uid'], (int) $data['amount'], $data['status']);
 
-            return $payment;
+            $dateTime = new \DateTime();
+            $dateTime->setTimestamp($data['created']);
+            $transaction->setCreated($dateTime);
+
+            return $transaction;
 
         } catch (\Exception $exception) {
             throw new TransactionException($exception->getMessage());
@@ -133,7 +136,7 @@ class OnlineBetaalPlatform
      * @param int $page
      * @param int $limit
      *
-     * @return Payment[]|array
+     * @return Transaction[]|array
      *
      * @throws TransactionException
      */
@@ -157,13 +160,14 @@ class OnlineBetaalPlatform
             $data = json_decode($response->getBody()->getContents(), true);
 
             return array_map(function($data) {
-                $payment = new Payment($data['return_url'], (int) $data['amount']);
-                $payment->setUid($data['uid']);
-                $payment->setStatus($data['status']);
-                $payment->setRedirectUrl($data['redirect_url']);
-                $payment->setRedirectUrl($data['redirect_url']);
+                $transaction = new Transaction($data['uid'], (int) $data['amount'], $data['status']);
 
-                return $payment;
+                $dateTime = new \DateTime();
+                $dateTime->setTimestamp($data['created']);
+                $transaction->setCreated($dateTime);
+
+                return $transaction;
+
             }, $data['data']);
         } catch (\Exception $exception) {
             throw new TransactionException($exception->getMessage());
