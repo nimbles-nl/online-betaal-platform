@@ -11,7 +11,6 @@ namespace Nimbles\OnlineBetaalPlatform\Adapter;
 use GuzzleHttp\ClientInterface;
 use Nimbles\OnlineBetaalPlatform\Exception\CreatePaymentException;
 use Nimbles\OnlineBetaalPlatform\Exception\TransactionException;
-use Nimbles\OnlineBetaalPlatform\Exception\UnauthorizedPaymentException;
 use Nimbles\OnlineBetaalPlatform\Model\Payment;
 
 /**
@@ -51,7 +50,6 @@ class OnlineBetaalPlatform
      * @return Payment
      *
      * @throws CreatePaymentException
-     * @throws UnauthorizedPaymentException
      */
     public function createTransaction(Payment $payment)
     {
@@ -126,6 +124,47 @@ class OnlineBetaalPlatform
 
             return $payment;
 
+        } catch (\Exception $exception) {
+            throw new TransactionException($exception->getMessage());
+        }
+    }
+
+    /**
+     * @param int $page
+     * @param int $limit
+     *
+     * @return Payment[]|array
+     *
+     * @throws TransactionException
+     */
+    public function getTransactions($page = 1, $limit = 1)
+    {
+        try {
+            $url = sprintf('%s/transactions', $this->uri);
+
+            $response = $this->httpClient->request('GET', $url, [
+                'auth' => [$this->apiKey, null],
+                'form_params' => [
+                    'page'    => $page,
+                    'perpage' => $limit,
+                ],
+            ]);
+
+            if ($response->getStatusCode() !== 200) {
+                throw new TransactionException('Invalid response');
+            }
+
+            $data = json_decode($response->getBody()->getContents(), true);
+
+            return array_map(function($data) {
+                $payment = new Payment($data['return_url'], (int) $data['amount']);
+                $payment->setUid($data['uid']);
+                $payment->setStatus($data['status']);
+                $payment->setRedirectUrl($data['redirect_url']);
+                $payment->setRedirectUrl($data['redirect_url']);
+
+                return $payment;
+            }, $data['data']);
         } catch (\Exception $exception) {
             throw new TransactionException($exception->getMessage());
         }

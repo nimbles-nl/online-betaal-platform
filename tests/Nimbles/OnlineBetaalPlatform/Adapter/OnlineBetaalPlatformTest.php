@@ -9,7 +9,6 @@
 namespace Tests\Nimbles\OnlineBetaalPlatform\Adapter;
 
 use GuzzleHttp\ClientInterface;
-use Nimbles\OnlineBetaalPlatform\Exception\UnauthorizedPaymentException;
 use Nimbles\OnlineBetaalPlatform\Model\Payment;
 use Nimbles\OnlineBetaalPlatform\Adapter\OnlineBetaalPlatform;
 use PHPUnit\Framework\TestCase;
