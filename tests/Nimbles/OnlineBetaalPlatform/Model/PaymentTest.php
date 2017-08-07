@@ -20,29 +20,29 @@ class PaymentTest extends TestCase
     {
         $payment = new Payment('https://nimbles.com/return/url', 1050);
 
-        $this->assertEquals(1050, $payment->getAmount());
-        $this->assertEquals('https://nimbles.com/return/url', $payment->getReturnUrl());
+        $this->assertSame(1050, $payment->getAmount());
+        $this->assertSame('https://nimbles.com/return/url', $payment->getReturnUrl());
 
         $payment->setUid('secret-uuid');
-        $this->assertEquals('secret-uuid', $payment->getUid());
+        $this->assertSame('secret-uuid', $payment->getUid());
 
         $payment->setStatus('created');
-        $this->assertEquals('created', $payment->getStatus());
+        $this->assertSame('created', $payment->getStatus());
 
         $payment->setBuyerLastName('jenkins');
-        $this->assertEquals('jenkins', $payment->getBuyerLastName());
+        $this->assertSame('jenkins', $payment->getBuyerLastName());
 
         $payment->setBuyerFirstName('peter');
-        $this->assertEquals('peter', $payment->getBuyerFirstName());
+        $this->assertSame('peter', $payment->getBuyerFirstName());
 
         $payment->setBuyerEmail('jenkins@github.com');
-        $this->assertEquals('jenkins@github.com', $payment->getBuyerEmail());
+        $this->assertSame('jenkins@github.com', $payment->getBuyerEmail());
 
         $payment->setRedirectUrl('https://nimbles.com/redirect/url');
-        $this->assertEquals('https://nimbles.com/redirect/url', $payment->getRedirectUrl());
+        $this->assertSame('https://nimbles.com/redirect/url', $payment->getRedirectUrl());
 
         $payment->setShippingCosts(500);
-        $this->assertEquals(500, $payment->getShippingCosts());
+        $this->assertSame(500, $payment->getShippingCosts());
 
         $this->assertFalse($payment->isSuccess());
 
