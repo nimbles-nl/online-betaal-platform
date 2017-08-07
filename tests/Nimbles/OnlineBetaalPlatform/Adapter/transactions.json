@@ -1,0 +1,14 @@
+{"data": [
+  {
+    "uid": "secret-uid1",
+    "amount": 1050,
+    "status": "created",
+    "created": 1502101912
+  },
+  {
+    "uid": "secret-uid2",
+    "amount": 666,
+    "status": "completed",
+    "created": 1502101916
+  }
+]}

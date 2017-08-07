@@ -370,6 +370,73 @@ class OnlineBetaalPlatformTest extends TestCase
         $this->onlineBetaalPlatform->getTransaction('unique-id');
     }
 
+    public function testGetTransactions()
+    {
+        $this->httpClient->expects($this->once())
+            ->method('request')
+            ->with('GET', 'https://api.onlinebetaalplatform.nl/transactions',
+                ['auth' => ['secret-token', null],              'form_params' => [
+                    'page'    => 1,
+                    'perpage' => 20,
+                ]]
+            )
+            ->willReturn($this->response);
+
+        $this->response->expects($this->once())
+            ->method('getStatusCode')
+            ->willReturn(200);
+
+        $this->response->expects($this->once())
+            ->method('getBody')
+            ->willReturn($this->stream);
+
+        $this->stream->expects($this->once())
+            ->method('getContents')
+            ->willReturn(file_get_contents(__DIR__ . '/transactions.json'));
+
+        $this->assertCount(2, $this->onlineBetaalPlatform->getTransactions(1, 20));
+    }
+
+    /**
+     * @expectedException Nimbles\OnlineBetaalPlatform\Exception\TransactionException
+     */
+    public function testGetTransactionsException()
+    {
+        $this->httpClient->expects($this->once())
+            ->method('request')
+            ->with('GET', 'https://api.onlinebetaalplatform.nl/transactions',
+                ['auth' => ['secret-token', null],              'form_params' => [
+                    'page'    => 1,
+                    'perpage' => 1,
+                ]]
+            )
+            ->willReturn($this->response);
+
+        $this->response->expects($this->once())
+            ->method('getStatusCode')
+            ->willReturn(401);
+
+        $this->onlineBetaalPlatform->getTransactions();
+    }
+
+    /**
+     * @expectedException Nimbles\OnlineBetaalPlatform\Exception\TransactionException
+     */
+    public function testGetTransactionsExceptionGuzzle()
+    {
+        $this->httpClient->expects($this->once())
+            ->method('request')
+            ->with('GET', 'https://api.onlinebetaalplatform.nl/transactions',
+                ['auth' => ['secret-token', null],              'form_params' => [
+                    'page'    => 1,
+                    'perpage' => 1,
+                ]]
+            )
+            ->willThrowException(new \Exception());
+
+        $this->onlineBetaalPlatform->getTransactions();
+    }
+
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject|ClientInterface
      */
