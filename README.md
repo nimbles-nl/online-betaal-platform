@@ -3,7 +3,8 @@
 [![Build Status](https://travis-ci.org/nimbles-nl/online-betaal-platform.svg?branch=master)](https://travis-ci.org/nimbles-nl/online-betaal-platform) [![Coverage Status](https://coveralls.io/repos/github/nimbles-nl/online-betaal-platform/badge.svg?branch=master)](https://coveralls.io/github/nimbles-nl/online-betaal-platform?branch=master)
 
 - IN DEVELOPMENT
-Do not use in production, many featured are not implemented yet and many stuff might change
+Do not use in production
+Many featured are not implemented yet and many stuff might change
 
 ### Step 1: Download the package using composer
 
@@ -13,7 +14,7 @@ Install package by running the command:
 $ composer require nimbles-nl/online-betaal-platform
 ```
 
-Initializing onlineBetaalPlatform
+Initializing OnlineBetaalPlatform
 ---------------------------------
 
 ``` php
