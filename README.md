@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.org/nimbles-nl/online-betaal-platform.svg?branch=master)](https://travis-ci.org/nimbles-nl/online-betaal-platform) [![Coverage Status](https://coveralls.io/repos/github/nimbles-nl/online-betaal-platform/badge.svg?branch=master)](https://coveralls.io/github/nimbles-nl/online-betaal-platform?branch=master)
 
+- IN DEVELOPMENT
+Do not use in production, many featured are not implemented yet and many stuff might change
+
 ### Step 1: Download the package using composer
 
 Install package by running the command:
@@ -10,8 +13,8 @@ Install package by running the command:
 $ composer require nimbles-nl/online-betaal-platform
 ```
 
-Send a payment request
-----------------------
+Initializing onlineBetaalPlatform
+---------------------------------
 
 ``` php
 $guzzle = new Client();
@@ -20,8 +23,13 @@ $url = 'https://api-sandbox.onlinebetaalplatform.nl/v1';
 $merchantUid = 'secret-uuid';
 
 $onlineBetaalPlatform = new OnlineBetaalPlatform($guzzle, $apiToken, $url, $merchantUid);
+```
 
-$amount = 10050;  // in full cents. 100 = 1 euro.
+Send a payment request
+----------------------
+
+``` php
+$amount = 10050; // in cents 100 = 1 euro.
 $payment = new Payment('https://www.mywebsite.nl/return-url', $amount);
 $payment = $onlineBetaalPlatform->createTransaction($payment);
 
@@ -34,13 +42,6 @@ Receive a payment request
 -------------------------
 
 ``` php
-$guzzle = new Client();
-$apiToken = 'secret-token';
-$url = 'https://api-sandbox.onlinebetaalplatform.nl/v1';
-$merchantUid = 'secret-uuid';
-
-$onlineBetaalPlatform = new OnlineBetaalPlatform($guzzle, $apiToken, $url, $merchantUid);
-
 $uuid = 'uuid-received-from-create-method-above';
 
 $payment = $onlineBetaalPlatform->getTransaction($uuid);
@@ -57,12 +58,5 @@ Receive Payments
 -------------------------
 
 ``` php
-$guzzle = new Client();
-$apiToken = 'secret-token';
-$url = 'https://api-sandbox.onlinebetaalplatform.nl/v1';
-$merchantUid = 'secret-uuid';
-
-$onlineBetaalPlatform = new OnlineBetaalPlatform($guzzle, $apiToken, $url, $merchantUid);
-
 $payments = $onlineBetaalPlatform->getTransactions();
 ```
