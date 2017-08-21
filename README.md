@@ -32,6 +32,10 @@ Send a payment request
 ``` php
 $amount = 10050; // in cents 100 = 1 euro.
 $payment = new Payment('https://www.mywebsite.nl/return-url', $amount);
+
+$product = new Product('Apple pie', 950, 1);
+$payment->addProduct($product);
+
 $payment = $onlineBetaalPlatform->createTransaction($payment);
 
 $payment->getUid();  // remember this uuid..
