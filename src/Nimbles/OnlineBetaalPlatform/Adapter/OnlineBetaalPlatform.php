@@ -12,6 +12,7 @@ use GuzzleHttp\ClientInterface;
 use Nimbles\OnlineBetaalPlatform\Exception\CreatePaymentException;
 use Nimbles\OnlineBetaalPlatform\Exception\TransactionException;
 use Nimbles\OnlineBetaalPlatform\Model\Payment;
+use Nimbles\OnlineBetaalPlatform\Model\Product;
 use Nimbles\OnlineBetaalPlatform\Model\Transaction;
 
 /**
@@ -63,13 +64,13 @@ class OnlineBetaalPlatform
                     'buyer_name_last'       => $payment->getBuyerLastName(),
                     'buyer_emailaddress'    => $payment->getBuyerEmail(),
                     'merchant_uid'          => $this->merchantUid,
-                    'products' => [
-                        0 => [
-                            'name' => 'Online payment',
-                            'price' => $payment->getAmount(),
-                            'quantity' => 1,
-                        ],
-                    ],
+                    'products' => array_map(function(Product $product) {
+                        return [
+                            'name'      => $product->getName(),
+                            'price'     => $product->getPrice(),
+                            'quantity'  => $product->getQuantity(),
+                        ];
+                    }, $payment->getProducts()),
                     'shipping_costs' => $payment->getShippingCosts(),
                     'total_price'    => $payment->getAmount(),
                     'return_url'     => $payment->getReturnUrl() . '?token=' . $payment->getToken(),

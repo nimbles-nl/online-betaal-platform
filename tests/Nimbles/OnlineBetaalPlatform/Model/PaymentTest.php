@@ -9,6 +9,7 @@
 namespace Tests\Nimbles\OnlineBetaalPlatform\Model;
 
 use Nimbles\OnlineBetaalPlatform\Model\Payment;
+use Nimbles\OnlineBetaalPlatform\Model\Product;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -47,5 +48,19 @@ class PaymentTest extends TestCase
         $this->assertFalse($payment->isSuccess());
 
         $this->assertTrue(is_string($payment->getToken()));
+
+        $payment->addProduct($this->createProductMock());
+
+        $this->assertCount(1, $payment->getProducts());
+    }
+
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    private function createProductMock()
+    {
+        return $this->getMockBuilder(Product::class)
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

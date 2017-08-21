@@ -43,6 +43,9 @@ class Payment
     /** @var string */
     private $token;
 
+    /** @var array|Product[] */
+    private $products = array();
+
     /**
      * @param string $returnUrl
      * @param int    $amount
@@ -197,5 +200,21 @@ class Payment
     public function isSuccess()
     {
         return $this->status === 'completed';
+    }
+
+    /**
+     * @param Product $product
+     */
+    public function addProduct(Product $product)
+    {
+        $this->products[] = $product;
+    }
+
+    /**
+     * @return array|Product[]
+     */
+    public function getProducts()
+    {
+        return $this->products;
     }
 }

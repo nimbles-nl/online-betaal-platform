@@ -11,6 +11,7 @@ namespace Tests\Nimbles\OnlineBetaalPlatform\Adapter;
 use GuzzleHttp\ClientInterface;
 use Nimbles\OnlineBetaalPlatform\Model\Payment;
 use Nimbles\OnlineBetaalPlatform\Adapter\OnlineBetaalPlatform;
+use Nimbles\OnlineBetaalPlatform\Model\Product;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -37,12 +38,16 @@ class OnlineBetaalPlatformTest extends TestCase
 
     private $url = 'https://api.onlinebetaalplatform.nl';
 
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Product */
+    private $product;
+
     public function setUp()
     {
-        $this->httpClient = $this->createHttpClientMock();
-        $this->payment = $this->createPaymentMock();
-        $this->response = $this->createResponseInterfaceMock();
-        $this->stream   = $this->createStreamInterfaceMock();
+        $this->httpClient   = $this->createHttpClientMock();
+        $this->payment      = $this->createPaymentMock();
+        $this->response     = $this->createResponseInterfaceMock();
+        $this->stream       = $this->createStreamInterfaceMock();
+        $this->product      = $this->createProductMock();
 
         $this->onlineBetaalPlatform = new OnlineBetaalPlatform($this->httpClient, 'secret-token', $this->url, 'secret-id');
     }
@@ -61,7 +66,7 @@ class OnlineBetaalPlatformTest extends TestCase
             ->method('getBuyerEmail')
             ->willReturn('klaas@bruinsma.nl');
 
-        $this->payment->expects($this->exactly(2))
+        $this->payment->expects($this->once())
             ->method('getAmount')
             ->willReturn(2500);
 
@@ -76,6 +81,22 @@ class OnlineBetaalPlatformTest extends TestCase
         $this->payment->expects($this->once())
             ->method('getToken')
             ->willReturn('super-secret');
+
+        $this->payment->expects($this->once())
+            ->method('getProducts')
+            ->willReturn([$this->product]);
+
+        $this->product->expects($this->once())
+            ->method('getName')
+            ->willReturn('Online payment');
+
+        $this->product->expects($this->once())
+            ->method('getPrice')
+            ->willReturn(2500);
+
+        $this->product->expects($this->once())
+            ->method('getQuantity')
+            ->willReturn(1);
 
         $this->httpClient->expects($this->once())
             ->method('request')
@@ -144,7 +165,7 @@ class OnlineBetaalPlatformTest extends TestCase
             ->method('getBuyerEmail')
             ->willReturn('klaas@bruinsma.nl');
 
-        $this->payment->expects($this->exactly(2))
+        $this->payment->expects($this->once())
             ->method('getAmount')
             ->willReturn(2500);
 
@@ -159,6 +180,22 @@ class OnlineBetaalPlatformTest extends TestCase
         $this->payment->expects($this->once())
             ->method('getToken')
             ->willReturn('super-secret');
+
+        $this->payment->expects($this->once())
+            ->method('getProducts')
+            ->willReturn([$this->product]);
+
+        $this->product->expects($this->once())
+            ->method('getName')
+            ->willReturn('Online payment');
+
+        $this->product->expects($this->once())
+            ->method('getPrice')
+            ->willReturn(2500);
+
+        $this->product->expects($this->once())
+            ->method('getQuantity')
+            ->willReturn(1);
 
         $this->httpClient->expects($this->once())
             ->method('request')
@@ -207,7 +244,7 @@ class OnlineBetaalPlatformTest extends TestCase
             ->method('getBuyerEmail')
             ->willReturn('klaas@bruinsma.nl');
 
-        $this->payment->expects($this->exactly(2))
+        $this->payment->expects($this->once())
             ->method('getAmount')
             ->willReturn(2500);
 
@@ -222,6 +259,22 @@ class OnlineBetaalPlatformTest extends TestCase
         $this->payment->expects($this->once())
             ->method('getToken')
             ->willReturn('super-secret');
+
+        $this->payment->expects($this->once())
+            ->method('getProducts')
+            ->willReturn([$this->product]);
+
+        $this->product->expects($this->once())
+            ->method('getName')
+            ->willReturn('Online payment');
+
+        $this->product->expects($this->once())
+            ->method('getPrice')
+            ->willReturn(2500);
+
+        $this->product->expects($this->once())
+            ->method('getQuantity')
+            ->willReturn(1);
 
         $this->httpClient->expects($this->once())
             ->method('request')
@@ -270,7 +323,7 @@ class OnlineBetaalPlatformTest extends TestCase
             ->method('getBuyerEmail')
             ->willReturn('klaas@bruinsma.nl');
 
-        $this->payment->expects($this->exactly(2))
+        $this->payment->expects($this->once())
             ->method('getAmount')
             ->willReturn(2500);
 
@@ -285,6 +338,22 @@ class OnlineBetaalPlatformTest extends TestCase
         $this->payment->expects($this->once())
             ->method('getToken')
             ->willReturn('super-secret');
+
+        $this->payment->expects($this->once())
+            ->method('getProducts')
+            ->willReturn([$this->product]);
+
+        $this->product->expects($this->once())
+            ->method('getName')
+            ->willReturn('Online payment');
+
+        $this->product->expects($this->once())
+            ->method('getPrice')
+            ->willReturn(2500);
+
+        $this->product->expects($this->once())
+            ->method('getQuantity')
+            ->willReturn(1);
 
         $this->httpClient->expects($this->once())
             ->method('request')
@@ -471,6 +540,16 @@ class OnlineBetaalPlatformTest extends TestCase
     private function createStreamInterfaceMock()
     {
         return $this->getMockBuilder(StreamInterface::class)
+            ->getMock();
+    }
+
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    private function createProductMock()
+    {
+        return $this->getMockBuilder(Product::class)
+            ->disableOriginalConstructor()
             ->getMock();
     }
 }
