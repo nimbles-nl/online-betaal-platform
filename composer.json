@@ -20,7 +20,8 @@
   },
   "require": {
     "php": ">=5.5.9",
-    "guzzlehttp/guzzle": "~6.3"
+    "guzzlehttp/guzzle": "~6.3",
+    "satooshi/php-coveralls": "^1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^6.1"
