@@ -63,6 +63,30 @@ class OnlineBetaalPlatformTest extends TestCase
             ->willReturn('Bruinsma');
 
         $this->payment->expects($this->once())
+            ->method('getBuyerAddress')
+            ->willReturn('Teststraat');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerHouseNumber')
+            ->willReturn(66);
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerHouseNumberAdditional')
+            ->willReturn('zwart');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerZipcode')
+            ->willReturn('1010AB');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerCity')
+            ->willReturn('Haarlem');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerCountry')
+            ->willReturn('NLD');
+
+        $this->payment->expects($this->once())
             ->method('getBuyerEmail')
             ->willReturn('klaas@bruinsma.nl');
 
@@ -117,6 +141,14 @@ class OnlineBetaalPlatformTest extends TestCase
                     'shipping_costs' => 100,
                     'total_price'    => 2500,
                     'return_url'     => 'https://www.foo.com/test?token=super-secret',
+                    'address'        => [
+                        'address_line_1'       => 'Teststraat',
+                        'housenumber'          => 66,
+                        'housenumber_addition' => 'zwart',
+                        'zipcode'              => '1010AB',
+                        'city'                 => 'Haarlem',
+                        'country'              => 'NLD',
+                    ],
                 ],
             ])
             ->willReturn($this->response);
@@ -166,6 +198,30 @@ class OnlineBetaalPlatformTest extends TestCase
             ->willReturn('klaas@bruinsma.nl');
 
         $this->payment->expects($this->once())
+            ->method('getBuyerAddress')
+            ->willReturn('Teststraat');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerHouseNumber')
+            ->willReturn(66);
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerHouseNumberAdditional')
+            ->willReturn('zwart');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerZipcode')
+            ->willReturn('1010AB');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerCity')
+            ->willReturn('Haarlem');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerCountry')
+            ->willReturn('NLD');
+
+        $this->payment->expects($this->once())
             ->method('getAmount')
             ->willReturn(2500);
 
@@ -216,6 +272,14 @@ class OnlineBetaalPlatformTest extends TestCase
                     'shipping_costs' => 100,
                     'total_price'    => 2500,
                     'return_url'     => 'https://www.foo.com/test?token=super-secret',
+                    'address'        => [
+                        'address_line_1'       => 'Teststraat',
+                        'housenumber'          => 66,
+                        'housenumber_addition' => 'zwart',
+                        'zipcode'              => '1010AB',
+                        'city'                 => 'Haarlem',
+                        'country'              => 'NLD',
+                    ],
                 ],
             ])
             ->willReturn($this->response);
@@ -245,6 +309,30 @@ class OnlineBetaalPlatformTest extends TestCase
             ->willReturn('klaas@bruinsma.nl');
 
         $this->payment->expects($this->once())
+            ->method('getBuyerAddress')
+            ->willReturn('Teststraat');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerHouseNumber')
+            ->willReturn(66);
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerHouseNumberAdditional')
+            ->willReturn('zwart');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerZipcode')
+            ->willReturn('1010AB');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerCity')
+            ->willReturn('Haarlem');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerCountry')
+            ->willReturn('NLD');
+
+        $this->payment->expects($this->once())
             ->method('getAmount')
             ->willReturn(2500);
 
@@ -295,6 +383,14 @@ class OnlineBetaalPlatformTest extends TestCase
                     'shipping_costs' => 100,
                     'total_price'    => 2500,
                     'return_url'     => 'https://www.foo.com/test?token=super-secret',
+                    'address'        => [
+                        'address_line_1'       => 'Teststraat',
+                        'housenumber'          => 66,
+                        'housenumber_addition' => 'zwart',
+                        'zipcode'              => '1010AB',
+                        'city'                 => 'Haarlem',
+                        'country'              => 'NLD',
+                    ],
                 ],
             ])
             ->willReturn($this->response);
@@ -324,6 +420,30 @@ class OnlineBetaalPlatformTest extends TestCase
             ->willReturn('klaas@bruinsma.nl');
 
         $this->payment->expects($this->once())
+            ->method('getBuyerAddress')
+            ->willReturn('Teststraat');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerHouseNumber')
+            ->willReturn(66);
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerHouseNumberAdditional')
+            ->willReturn('zwart');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerZipcode')
+            ->willReturn('1010AB');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerCity')
+            ->willReturn('Haarlem');
+
+        $this->payment->expects($this->once())
+            ->method('getBuyerCountry')
+            ->willReturn('NLD');
+
+        $this->payment->expects($this->once())
             ->method('getAmount')
             ->willReturn(2500);
 
@@ -374,6 +494,14 @@ class OnlineBetaalPlatformTest extends TestCase
                     'shipping_costs' => 100,
                     'total_price'    => 2500,
                     'return_url'     => 'https://www.foo.com/test?token=super-secret',
+                    'address'        => [
+                        'address_line_1'       => 'Teststraat',
+                        'housenumber'          => 66,
+                        'housenumber_addition' => 'zwart',
+                        'zipcode'              => '1010AB',
+                        'city'                 => 'Haarlem',
+                        'country'              => 'NLD',
+                    ],
                 ],
             ])
             ->willReturn($this->response);

@@ -39,6 +39,24 @@ class PaymentTest extends TestCase
         $payment->setBuyerEmail('jenkins@github.com');
         $this->assertSame('jenkins@github.com', $payment->getBuyerEmail());
 
+        $payment->setBuyerAddress('snellestraat');
+        $this->assertSame('snellestraat', $payment->getBuyerAddress());
+
+        $payment->setBuyerHouseNumber(12);
+        $this->assertSame(12, $payment->getBuyerHouseNumber());
+
+        $payment->setBuyerHouseNumberAdditional('rood');
+        $this->assertSame('rood', $payment->getBuyerHouseNumberAdditional());
+
+        $payment->setBuyerCity('Haarlem');
+        $this->assertSame('Haarlem', $payment->getBuyerCity());
+
+        $payment->setBuyerZipcode('1010AB');
+        $this->assertSame('1010AB', $payment->getBuyerZipcode());
+
+        $payment->setBuyerCountry('FRA');
+        $this->assertSame('FRA', $payment->getBuyerCountry());
+
         $payment->setRedirectUrl('https://nimbles.com/redirect/url');
         $this->assertSame('https://nimbles.com/redirect/url', $payment->getRedirectUrl());
 

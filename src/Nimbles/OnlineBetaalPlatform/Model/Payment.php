@@ -37,6 +37,24 @@ class Payment
     /** @var string */
     private $buyerEmail;
 
+    /** @var string */
+    private $buyerAddress;
+
+    /** @var string */
+    private $buyerHouseNumber;
+
+    /** @var string */
+    private $buyerHouseNumberAdditional;
+
+    /** @var string */
+    private $buyerZipcode;
+
+    /** @var string */
+    private $buyerCity;
+
+    /** @var string */
+    private $buyerCountry = 'NLD';
+
     /** @var integer */
     private $shippingCosts = 0;
 
@@ -45,6 +63,7 @@ class Payment
 
     /** @var array|Product[] */
     private $products = array();
+
 
     /**
      * @param string $returnUrl
@@ -216,5 +235,101 @@ class Payment
     public function getProducts()
     {
         return $this->products;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBuyerAddress()
+    {
+        return $this->buyerAddress;
+    }
+
+    /**
+     * @param string $buyerAddress
+     */
+    public function setBuyerAddress($buyerAddress)
+    {
+        $this->buyerAddress = $buyerAddress;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBuyerHouseNumber()
+    {
+        return $this->buyerHouseNumber;
+    }
+
+    /**
+     * @param string $buyerHouseNumber
+     */
+    public function setBuyerHouseNumber($buyerHouseNumber)
+    {
+        $this->buyerHouseNumber = $buyerHouseNumber;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBuyerHouseNumberAdditional()
+    {
+        return $this->buyerHouseNumberAdditional;
+    }
+
+    /**
+     * @param string $buyerHouseNumberAdditional
+     */
+    public function setBuyerHouseNumberAdditional($buyerHouseNumberAdditional)
+    {
+        $this->buyerHouseNumberAdditional = $buyerHouseNumberAdditional;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBuyerZipcode()
+    {
+        return $this->buyerZipcode;
+    }
+
+    /**
+     * @param string $buyerZipcode
+     */
+    public function setBuyerZipcode($buyerZipcode)
+    {
+        $this->buyerZipcode = $buyerZipcode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBuyerCity()
+    {
+        return $this->buyerCity;
+    }
+
+    /**
+     * @param string $buyerCity
+     */
+    public function setBuyerCity($buyerCity)
+    {
+        $this->buyerCity = $buyerCity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBuyerCountry()
+    {
+        return $this->buyerCountry;
+    }
+
+    /**
+     * @param string $buyerCountry
+     */
+    public function setBuyerCountry($buyerCountry)
+    {
+        $this->buyerCountry = $buyerCountry;
     }
 }

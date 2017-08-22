@@ -74,6 +74,14 @@ class OnlineBetaalPlatform
                     'shipping_costs' => $payment->getShippingCosts(),
                     'total_price'    => $payment->getAmount(),
                     'return_url'     => $payment->getReturnUrl() . '?token=' . $payment->getToken(),
+                    'address'        => [
+                        'address_line_1'       => $payment->getBuyerAddress(),
+                        'housenumber'          => $payment->getBuyerHouseNumber(),
+                        'housenumber_addition' => $payment->getBuyerHouseNumberAdditional(),
+                        'zipcode'              => $payment->getBuyerZipcode(),
+                        'city'                 => $payment->getBuyerCity(),
+                        'country'              => $payment->getBuyerCountry(),
+                    ],
                 ],
             ]);
 
