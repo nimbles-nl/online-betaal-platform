@@ -70,6 +70,9 @@ class PaymentTest extends TestCase
         $payment->addProduct($this->createProductMock());
 
         $this->assertCount(1, $payment->getProducts());
+
+        $payment->setCheckout(false);
+        $this->assertFalse($payment->isCheckout());
     }
 
     /**

@@ -64,6 +64,9 @@ class Payment
     /** @var array|Product[] */
     private $products = array();
 
+    /** @var bool */
+    private $checkout = true;
+
 
     /**
      * @param string $returnUrl
@@ -331,5 +334,21 @@ class Payment
     public function setBuyerCountry($buyerCountry)
     {
         $this->buyerCountry = $buyerCountry;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCheckout()
+    {
+        return $this->checkout;
+    }
+
+    /**
+     * @param boolean $checkout
+     */
+    public function setCheckout($checkout)
+    {
+        $this->checkout = $checkout;
     }
 }
