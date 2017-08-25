@@ -141,7 +141,6 @@ class OnlineBetaalPlatformTest extends TestCase
                     'shipping_costs' => 100,
                     'total_price'    => 2500,
                     'return_url'     => 'https://www.foo.com/test?token=super-secret',
-                    'checkout'       => false,
                     'address'        => [
                         'address_line_1'       => 'Teststraat',
                         'housenumber'          => 66,
@@ -273,7 +272,6 @@ class OnlineBetaalPlatformTest extends TestCase
                     'shipping_costs' => 100,
                     'total_price'    => 2500,
                     'return_url'     => 'https://www.foo.com/test?token=super-secret',
-                    'checkout'       => false,
                     'address'        => [
                         'address_line_1'       => 'Teststraat',
                         'housenumber'          => 66,
@@ -385,7 +383,6 @@ class OnlineBetaalPlatformTest extends TestCase
                     'shipping_costs' => 100,
                     'total_price'    => 2500,
                     'return_url'     => 'https://www.foo.com/test?token=super-secret',
-                    'checkout'       => false,
                     'address'        => [
                         'address_line_1'       => 'Teststraat',
                         'housenumber'          => 66,
@@ -466,10 +463,6 @@ class OnlineBetaalPlatformTest extends TestCase
             ->method('getProducts')
             ->willReturn([$this->product]);
 
-        $this->payment->expects($this->once())
-            ->method('isCheckout')
-            ->willReturn(false);
-
         $this->product->expects($this->once())
             ->method('getName')
             ->willReturn('Online payment');
@@ -501,7 +494,6 @@ class OnlineBetaalPlatformTest extends TestCase
                     'shipping_costs' => 100,
                     'total_price'    => 2500,
                     'return_url'     => 'https://www.foo.com/test?token=super-secret',
-                    'checkout' => false,
                     'address'        => [
                         'address_line_1'       => 'Teststraat',
                         'housenumber'          => 66,
