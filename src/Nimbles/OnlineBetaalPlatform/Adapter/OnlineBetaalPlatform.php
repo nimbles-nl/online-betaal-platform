@@ -74,6 +74,7 @@ class OnlineBetaalPlatform
                     'shipping_costs' => $payment->getShippingCosts(),
                     'total_price'    => $payment->getAmount(),
                     'return_url'     => $payment->getReturnUrl() . '?token=' . $payment->getToken(),
+                    'checkout'       => $payment->isCheckout() ? 'true' : 'false',
                     'address'        => [
                         'address_line_1'       => $payment->getBuyerAddress(),
                         'housenumber'          => $payment->getBuyerHouseNumber(),
