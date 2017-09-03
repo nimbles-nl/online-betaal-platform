@@ -20,6 +20,3 @@ after_success:
 
 after_success:
   - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then php vendor/bin/coveralls -v; fi;'
-
-service_name: travis-pro
-repo_token: h3dp4DBOlymbN9LsYi7kPrPmBlI3m3dZw
