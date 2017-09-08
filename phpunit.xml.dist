@@ -15,7 +15,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="online payment php package">
+        <testsuite name="onlinebetaalplatform">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
