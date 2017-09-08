@@ -67,15 +67,19 @@ class Payment
     /** @var bool */
     private $checkout = true;
 
+    /** @var string */
+    private $merchantUid;
 
     /**
+     * @param string $merchantUid
      * @param string $returnUrl
      * @param int    $amount
      */
-    public function __construct($returnUrl, $amount)
+    public function __construct($merchantUid, $returnUrl, $amount)
     {
-        $this->returnUrl = $returnUrl;
-        $this->amount    = $amount;
+        $this->merchantUid = $merchantUid;
+        $this->returnUrl   = $returnUrl;
+        $this->amount      = $amount;
 
         $this->token = md5(time() . microtime() . uniqid() . mt_rand(1, 10000));
     }
@@ -350,5 +354,13 @@ class Payment
     public function setCheckout($checkout)
     {
         $this->checkout = $checkout;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMerchantUid()
+    {
+        return $this->merchantUid;
     }
 }

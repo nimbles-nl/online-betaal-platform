@@ -29,21 +29,16 @@ class OnlineBetaalPlatform
     /** @var string */
     private $uri;
 
-    /** @var string */
-    private $merchantUid;
-
     /**
      * @param ClientInterface $httpClient
      * @param string          $apiKey
      * @param string          $uri
-     * @param string          $merchantUid
      */
-    public function __construct(ClientInterface $httpClient, $apiKey, $uri, $merchantUid)
+    public function __construct(ClientInterface $httpClient, $apiKey, $uri)
     {
-        $this->httpClient  = $httpClient;
-        $this->apiKey      = $apiKey;
-        $this->uri         = $uri;
-        $this->merchantUid = $merchantUid;
+        $this->httpClient = $httpClient;
+        $this->apiKey     = $apiKey;
+        $this->uri        = $uri;
     }
 
     /**
@@ -63,7 +58,7 @@ class OnlineBetaalPlatform
                     'buyer_name_first'      => $payment->getBuyerFirstName(),
                     'buyer_name_last'       => $payment->getBuyerLastName(),
                     'buyer_emailaddress'    => $payment->getBuyerEmail(),
-                    'merchant_uid'          => $this->merchantUid,
+                    'merchant_uid'          => $payment->getMerchantUid(),
                     'products' => array_map(function(Product $product) {
                         return [
                             'name'      => $product->getName(),
@@ -150,7 +145,7 @@ class OnlineBetaalPlatform
      *
      * @throws TransactionException
      */
-    public function getTransactions($page = 1, $limit = 1)
+    public function getTransactions($page = 1, $limit = 10)
     {
         try {
             $url = sprintf('%s/transactions', $this->uri);

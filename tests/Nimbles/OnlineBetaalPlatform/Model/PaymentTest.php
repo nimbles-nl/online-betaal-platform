@@ -19,7 +19,7 @@ class PaymentTest extends TestCase
 {
     public function testPayment()
     {
-        $payment = new Payment('https://nimbles.com/return/url', 1050);
+        $payment = new Payment('merchant-id', 'https://nimbles.com/return/url', 1050);
 
         $this->assertSame(1050, $payment->getAmount());
         $this->assertSame('https://nimbles.com/return/url', $payment->getReturnUrl());
@@ -64,6 +64,8 @@ class PaymentTest extends TestCase
         $this->assertSame(500, $payment->getShippingCosts());
 
         $this->assertFalse($payment->isSuccess());
+
+        $this->assertSame('merchant-id', $payment->getMerchantUid());
 
         $this->assertTrue(is_string($payment->getToken()));
 

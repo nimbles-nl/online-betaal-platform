@@ -49,7 +49,7 @@ class OnlineBetaalPlatformTest extends TestCase
         $this->stream       = $this->createStreamInterfaceMock();
         $this->product      = $this->createProductMock();
 
-        $this->onlineBetaalPlatform = new OnlineBetaalPlatform($this->httpClient, 'secret-token', $this->url, 'secret-id');
+        $this->onlineBetaalPlatform = new OnlineBetaalPlatform($this->httpClient, 'secret-token', $this->url);
     }
 
     public function testCreateTransaction()
@@ -57,6 +57,10 @@ class OnlineBetaalPlatformTest extends TestCase
         $this->payment->expects($this->once())
             ->method('getBuyerFirstName')
             ->willReturn('Klaas');
+
+        $this->payment->expects($this->once())
+            ->method('getMerchantUid')
+            ->willReturn('merchant-uid');
 
         $this->payment->expects($this->once())
             ->method('getBuyerLastName')
@@ -130,7 +134,7 @@ class OnlineBetaalPlatformTest extends TestCase
                     'buyer_name_first'      => 'Klaas',
                     'buyer_name_last'       => 'Bruinsma',
                     'buyer_emailaddress'    => 'klaas@bruinsma.nl',
-                    'merchant_uid'          => 'secret-id',
+                    'merchant_uid'          => 'merchant-uid',
                     'products' => [
                         0 => [
                             'name' => 'Online payment',
@@ -191,6 +195,10 @@ class OnlineBetaalPlatformTest extends TestCase
             ->willReturn('Klaas');
 
         $this->payment->expects($this->once())
+            ->method('getMerchantUid')
+            ->willReturn('merchant-uid');
+
+        $this->payment->expects($this->once())
             ->method('getBuyerLastName')
             ->willReturn('Bruinsma');
 
@@ -262,7 +270,7 @@ class OnlineBetaalPlatformTest extends TestCase
                     'buyer_name_first'      => 'Klaas',
                     'buyer_name_last'       => 'Bruinsma',
                     'buyer_emailaddress'    => 'klaas@bruinsma.nl',
-                    'merchant_uid'          => 'secret-id',
+                    'merchant_uid'          => 'merchant-uid',
                     'products' => [
                         0 => [
                             'name' => 'Online payment',
@@ -307,6 +315,10 @@ class OnlineBetaalPlatformTest extends TestCase
             ->willReturn('Bruinsma');
 
         $this->payment->expects($this->once())
+            ->method('getMerchantUid')
+            ->willReturn('merchant-uid');
+
+        $this->payment->expects($this->once())
             ->method('getBuyerEmail')
             ->willReturn('klaas@bruinsma.nl');
 
@@ -374,7 +386,7 @@ class OnlineBetaalPlatformTest extends TestCase
                     'buyer_name_first'      => 'Klaas',
                     'buyer_name_last'       => 'Bruinsma',
                     'buyer_emailaddress'    => 'klaas@bruinsma.nl',
-                    'merchant_uid'          => 'secret-id',
+                    'merchant_uid'          => 'merchant-uid',
                     'products' => [
                         0 => [
                             'name' => 'Online payment',
@@ -413,6 +425,10 @@ class OnlineBetaalPlatformTest extends TestCase
         $this->payment->expects($this->once())
             ->method('getBuyerFirstName')
             ->willReturn('Klaas');
+
+        $this->payment->expects($this->once())
+            ->method('getMerchantUid')
+            ->willReturn('merchant-uid');
 
         $this->payment->expects($this->once())
             ->method('getBuyerLastName')
@@ -490,7 +506,7 @@ class OnlineBetaalPlatformTest extends TestCase
                     'buyer_name_first'      => 'Klaas',
                     'buyer_name_last'       => 'Bruinsma',
                     'buyer_emailaddress'    => 'klaas@bruinsma.nl',
-                    'merchant_uid'          => 'secret-id',
+                    'merchant_uid'          => 'merchant-uid',
                     'products' => [
                         0 => [
                             'name' => 'Online payment',
@@ -612,7 +628,7 @@ class OnlineBetaalPlatformTest extends TestCase
             ->with('GET', 'https://api.onlinebetaalplatform.nl/transactions',
                 ['auth' => ['secret-token', null],              'form_params' => [
                     'page'    => 1,
-                    'perpage' => 1,
+                    'perpage' => 10,
                 ]]
             )
             ->willReturn($this->response);
@@ -634,7 +650,7 @@ class OnlineBetaalPlatformTest extends TestCase
             ->with('GET', 'https://api.onlinebetaalplatform.nl/transactions',
                 ['auth' => ['secret-token', null],              'form_params' => [
                     'page'    => 1,
-                    'perpage' => 1,
+                    'perpage' => 10,
                 ]]
             )
             ->willThrowException(new \Exception());
