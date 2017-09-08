@@ -2,11 +2,8 @@
 
 [![Build Status](https://travis-ci.org/nimbles-nl/online-betaal-platform.svg?branch=master)](https://travis-ci.org/nimbles-nl/online-betaal-platform) [![Latest Stable Version](https://poser.pugx.org/nimbles-nl/online-betaal-platform/v/stable)](https://packagist.org/packages/nimbles-nl/online-betaal-platform) [![License](https://poser.pugx.org/nimbles-nl/online-betaal-platform/license)](https://packagist.org/packages/nimbles-nl/online-betaal-platform) [![Total Downloads](https://poser.pugx.org/nimbles-nl/online-betaal-platform/downloads)](https://packagist.org/packages/nimbles-nl/online-betaal-platform) [![codecov](https://codecov.io/gh/nimbles-nl/online-betaal-platform/branch/master/graph/badge.svg)](https://codecov.io/gh/nimbles-nl/online-betaal-platform)
 
-- IN DEVELOPMENT
-Do not use in production
-Many featured are not implemented yet and many stuff might change
 
-### Step 1: Download the package using composer
+### Download the package using composer
 
 Install package by running the command:
 
@@ -20,10 +17,9 @@ Initializing OnlineBetaalPlatform
 ``` php
 $guzzle = new Client();
 $apiToken = 'secret-token';
-$url = 'https://api-sandbox.onlinebetaalplatform.nl/v1';
-$merchantUid = 'secret-uuid';
+$apiUrl = 'https://api-sandbox.onlinebetaalplatform.nl/v1';
 
-$onlineBetaalPlatform = new OnlineBetaalPlatform($guzzle, $apiToken, $url, $merchantUid);
+$onlineBetaalPlatform = new OnlineBetaalPlatform($guzzle, $apiToken, $apiUrl);
 ```
 
 Send a payment request
@@ -60,8 +56,30 @@ if ($payment->isSuccess()) {
 ```
 
 Receive Payments
--------------------------
+----------------
 
 ``` php
 $payments = $onlineBetaalPlatform->getTransactions();
 ```
+
+
+Initializing Merchant sManager
+-----------------------------
+
+``` php
+$guzzle = new Client();
+$apiToken = 'secret-token';
+$apiUrl = 'https://api-sandbox.onlinebetaalplatform.nl/v1';
+
+$merchantManager = new MerchantsManager($guzzle, $apiToken, $apiUrl);
+```
+
+
+Create Merchant
+---------------
+
+``` php
+$merchant = $merchantManager->createMerchant('Klaas', 'Bruinsma', 'klaas@bruinsma.nl', '0031612345678');
+```
+
+
