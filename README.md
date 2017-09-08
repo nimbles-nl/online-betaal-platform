@@ -63,8 +63,8 @@ $payments = $onlineBetaalPlatform->getTransactions();
 ```
 
 
-Initializing Merchant sManager
------------------------------
+Initializing Merchants Manager
+------------------------------
 
 ``` php
 $guzzle = new Client();
