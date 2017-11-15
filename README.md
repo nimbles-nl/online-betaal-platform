@@ -3,6 +3,11 @@
 [![Build Status](https://travis-ci.org/nimbles-nl/online-betaal-platform.svg?branch=master)](https://travis-ci.org/nimbles-nl/online-betaal-platform) [![Latest Stable Version](https://poser.pugx.org/nimbles-nl/online-betaal-platform/v/stable)](https://packagist.org/packages/nimbles-nl/online-betaal-platform) [![License](https://poser.pugx.org/nimbles-nl/online-betaal-platform/license)](https://packagist.org/packages/nimbles-nl/online-betaal-platform) [![Total Downloads](https://poser.pugx.org/nimbles-nl/online-betaal-platform/downloads)](https://packagist.org/packages/nimbles-nl/online-betaal-platform) [![codecov](https://codecov.io/gh/nimbles-nl/online-betaal-platform/branch/master/graph/badge.svg)](https://codecov.io/gh/nimbles-nl/online-betaal-platform)
 
 
+### This project is not maintained anymore ###
+
+
+
+
 ### Download the package using composer
 
 Install package by running the command:
